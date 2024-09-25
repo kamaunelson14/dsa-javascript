@@ -98,4 +98,38 @@ class SinglyLinkedList{
         this.length ++;
         return this;
     }
+
+    // get - fetches the node at an index
+    // If the length of the list is negative, greater than or equal to the index, return null
+    // Otherwise, loop through the list until you find the property at the specified index
+    // Return the node at the specified index
+    get(index){
+        if(index < 0 || index >= this.length) return null;
+
+        let counter = 0;
+        let current = this.head;
+        while(counter < index){
+            current = current.next;
+            counter ++;
+        }
+
+        return current;
+    }
+
+    // set - sets the value of a node based on its position in the linked list
+    // Use the get function to find the specific node
+    // If the node is not found, return false
+    // If the node is found, set the value of that node to be the value passed to the function and return true
+    set(index, val){
+        const node = this.get(index);
+
+        if(node){
+            node.val = val;
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
