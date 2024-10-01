@@ -149,6 +149,78 @@ class DoublyLinkedList {
         return current;
     }
 
-}
+    // set - replaces the value of a specific node on the list
+    // Create a variable which is the result of the get method at the index passed to the function
+    // If the get method returns a valid node, set the value of that node to be the value passed to the function, the return true
+    // Otherwise, return false
+    set(index, val){
+        const foundNode = this.get(index);
 
-const list = new DoublyLinkedList();
+        if(foundNode){
+            foundNode.val = val;
+            return true;
+        }
+        
+        return false;
+    }
+
+    // Insert - adds a node to a specific position in a Doubly Linked List
+    // If the index is less than zero or greater than the length, return false
+    // If the index is 0, unshift
+    // If the index is the same as the length, push
+    // Otherwise:
+    //  - Use the get method to access the index -1
+    //  - Set the next and prev properties on the correct nodes to link everything together
+    // Increment the length
+    // Return true
+    insert(index, val) {
+        if(index < 0 || index > this.length) return false;
+
+        if(index === 0) return !!this.unshift(val);
+
+        if(index === this.length ) return !!this.push(val);
+
+        const newNode = new Node(val);
+        const beforeNode = this.get(index - 1);
+        const afterNode = beforeNode.next;
+
+        newNode.next = afterNode;
+        afterNode.prev = newNode;
+        newNode.prev = beforeNode;
+        beforeNode.next = newNode;
+
+        this.length ++;
+        return true;
+    }
+
+    // remove - removes the node at a specific position in a Doubly Linked List
+    // If the index is less than 0 or greater than the length of the list, return null;
+    // If the index is equal to 0, shift
+    // If the index is equal to the length, pop
+    // Otherwise:
+    // - use the get method to find the node at the index
+    // - store the nodes before and after to variables
+    // - Connect
+    // Decrement the length by 1
+    // Return removed node
+
+    remove(index){
+        if(index < 0 || index >= this.length) return null;
+        
+        if(index === 0) return this.shift();
+
+        if(index === this.length - 1) return this.pop();
+
+        const foundNode = this.get(index);
+        const beforeNode = foundNode.prev;
+        const afterNode = foundNode.next;
+
+        beforeNode.next = afterNode;
+        afterNode.prev = beforeNode;
+        foundNode.next = null;
+        foundNode.prev = null;
+
+        this.length --;
+        return foundNode;
+    }
+}
