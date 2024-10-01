@@ -196,11 +196,11 @@ class DoublyLinkedList {
     // remove - removes the node at a specific position in a Doubly Linked List
     // If the index is less than 0 or greater than the length of the list, return null;
     // If the index is equal to 0, shift
-    // If the index is equal to the length, pop
+    // If the index is equal to the length - 1, pop
     // Otherwise:
-    // - use the get method to find the node at the index
-    // - store the nodes before and after to variables
-    // - Connect
+    // - use the get method to retrieve the item to be removed
+    // - Update the next and prev properties to remove the found node from the list
+    // - Set next and prev to null on the found node
     // Decrement the length by 1
     // Return removed node
 
@@ -211,16 +211,16 @@ class DoublyLinkedList {
 
         if(index === this.length - 1) return this.pop();
 
-        const foundNode = this.get(index);
-        const beforeNode = foundNode.prev;
-        const afterNode = foundNode.next;
+        const removedNode = this.get(index);
+        const beforeNode = removedNode.prev;
+        const afterNode = removedNode.next;
 
         beforeNode.next = afterNode;
         afterNode.prev = beforeNode;
-        foundNode.next = null;
-        foundNode.prev = null;
+        removedNode.next = null;
+        removedNode.prev = null;
 
         this.length --;
-        return foundNode;
+        return removedNode;
     }
 }
