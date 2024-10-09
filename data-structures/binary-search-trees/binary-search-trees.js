@@ -90,4 +90,91 @@ class BinarySearchTree {
             }
         }
     }
+
+    // Breadth First Search 
+    // Create a queue (this can be an array) and a variable to store the values of the nodes visited
+    // Place the root node in the queue
+    // Loop as long as there is anything in the queue
+    // - Dequeue a node from the que and push the value of the node into the variable that stores the nodes
+    // - If there is a left property on the node dequeued - add it to the queue
+    // - If there is a right property on the node dequeued - add it to the queue
+    BFS () {
+        if (!this.root) return null; 
+
+        const queue = [this.root];
+        const visited = [];
+
+        while (queue.length !== 0) {
+            const current = queue.shift();
+            visited.push(current.val);
+            if (current.left) queue.push(current.left);
+            if (current.right) queue.push(current.right);
+        }
+
+        return visited;
+    }
+
+    // Depth First Search - PreOrder
+    // Create a variable to store the values of nodes visited
+    // Write a helper function which accepts a node
+    // - Push the value of the node to the variable that stores the values
+    // - If the node has a left property, call the helper function with the left property on the node
+    // - If the node has a right property, call the helper function with the right property on the node
+    // Invoke the helper function with the root as the argument
+    // Return the array of values
+    DFSPreOrder () {
+        const data = [];
+
+        function traverse (node) {
+            data.push(node.val);
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+        }
+
+        traverse(this.root);
+        return data;
+    }
+
+    // Depth First Search - PostOrder
+    // Create a variable to store the values of nodes visited
+    // Write a helper function which accepts a node
+    // - If the node has a left property, call the helper function with the left property on the node
+    // - If the node has a right property, call the helper function with the right property on the node
+    // - Push the value of the node to the variable that stores the values
+    // Invoke the helper function with the root as the argument
+    // Return the array of values
+    DFSPostOrder () {
+        const data = [];
+
+        function traverse (node) {
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+            data.push(node.val);
+        }
+
+        traverse(this.root);
+        return data;
+    }
+
+    // Depth First Search - InOrder
+    // Create a variable to store the values of nodes visited
+    // Write a helper function which accepts a node
+    // - If the node has a left property, call the helper function with the left property on the node
+    // - Push the value of the node to the variable that stores the values
+    // - If the node has a right property, call the helper function with the right property on the node
+    // Invoke the helper function with the root as the argument
+    // Return the array of values
+    DFSInOrder () {
+        const data = [];
+
+        function traverse (node) {
+            if (node.left) traverse(node.left);
+            data.push(node.val);
+            if (node.right) traverse(node.right);
+        }
+        
+        traverse(this.root);
+        return data;
+    }
 }
+
